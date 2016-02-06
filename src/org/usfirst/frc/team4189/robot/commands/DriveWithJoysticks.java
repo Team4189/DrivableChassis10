@@ -24,9 +24,9 @@ public class DriveWithJoysticks extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	Robot.chassis.setSpeed(OI.leftStick.getY() , OI.rightStick.getY());
-    	OI.resetGyro.whenPressed(OI.gyro.reset());
+    	
     }
-
+ 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
     	//Robot.chassis.setSpeed(0, 0);

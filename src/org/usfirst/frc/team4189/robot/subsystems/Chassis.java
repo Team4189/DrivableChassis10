@@ -4,6 +4,8 @@ import org.usfirst.frc.team4189.robot.OI;
 import org.usfirst.frc.team4189.robot.RobotMap;
 import org.usfirst.frc.team4189.robot.commands.DriveWithJoysticks;
 
+import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -16,6 +18,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Chassis extends Subsystem {
 	Talon rightMotor = new Talon(RobotMap.rightMotorPort);
 	Talon leftMotor = new Talon(RobotMap.leftMotorPort);
+	public PixyCam pixyCam = new PixyCam("cam1");
+	
 	
 	// Put methods for controlling this subsystem
     // here. Call these from Commands.
@@ -37,7 +41,8 @@ public class Chassis extends Subsystem {
 			
 		}
 		OI.gyro.reset();
-		return 0.0;
+		//return 0.0;
+		return OI.gyro.getAngle();
 		
 		
 	}
