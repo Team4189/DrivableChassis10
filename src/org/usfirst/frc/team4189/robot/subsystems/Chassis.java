@@ -1,6 +1,9 @@
 package org.usfirst.frc.team4189.robot.subsystems;
 
+import java.util.Arrays;
+
 import org.usfirst.frc.team4189.robot.OI;
+import org.usfirst.frc.team4189.robot.Robot;
 import org.usfirst.frc.team4189.robot.RobotMap;
 import org.usfirst.frc.team4189.robot.commands.DriveWithJoysticks;
 
@@ -18,15 +21,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Chassis extends Subsystem {
 	Talon rightMotor = new Talon(RobotMap.rightMotorPort);
 	Talon leftMotor = new Talon(RobotMap.leftMotorPort);
-	public PixyCam pixyCam = new PixyCam("cam1");
+	
 	
 	
 	// Put methods for controlling this subsystem
     // here. Call these from Commands.
 	
 	public void setSpeed(double x, double y){
-		leftMotor.set(x);
-		rightMotor.set(y*-1);
+		leftMotor.set(x*-1);
+		rightMotor.set(y);
 	}
     
 	public double convert(){
@@ -50,7 +53,33 @@ public class Chassis extends Subsystem {
 		 SmartDashboard.putNumber("Distance In Inches", convert());
 		 SmartDashboard.putNumber("Gyro Acceleration" , OI.gyro.getRate());
 		 SmartDashboard.putNumber("Gyro Angle", gyroConvert());
+		 
 	 }
+	 
+	 
+	 public double compareRange(){
+		 double minRange = 0.0;
+	     double [] SwerveVs = new double[90];
+	     for(int i = 0; i < 90; i++){
+	            Robot.chassis.setSpeed(-0.25, 0.25);
+	            SwerveVs[i] = Robot.chassis.convert();
+	            Robot.chassis.setSpeed(0,0);
+	      }
+	      Arrays.sort(SwerveVs);
+          minRange = SwerveVs[0];
+	      Robot.chassis.setSpeed(0,0);
+	      return minRange;
+
+	    }
+	    public void findMinRange(){
+
+	    double minRange = compareRange();
+	    while(Robot.chassis.convert() != minRange){
+	        Robot.chassis.setSpeed(0.25, -0.25);
+	        }
+	        Robot.chassis.setSpeed(0,0);
+	    }
+
 
     public void initDefaultCommand() {
        setDefaultCommand(new DriveWithJoysticks());

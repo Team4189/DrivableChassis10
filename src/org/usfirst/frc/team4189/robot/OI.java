@@ -1,8 +1,8 @@
 package org.usfirst.frc.team4189.robot;
 
 import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.CameraServer;
-import edu.wpi.first.wpilibj.Gyro;
+//import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import org.usfirst.frc.team4189.robot.commands.ExampleCommand;
 
 import org.usfirst.frc.team4189.robot.commands.ResetGyro;
+import org.usfirst.frc.team4189.robot.commands.SquareUp;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -19,8 +20,9 @@ public class OI {
 	public static Joystick leftStick = new Joystick(RobotMap.leftStick);
 	public static Joystick rightStick = new Joystick(RobotMap.rightStick);
 	public static AnalogInput rangeFinder1 = new AnalogInput(0);
-	public static Gyro gyro = new Gyro(1);
+	public static AnalogGyro gyro = new AnalogGyro(1);
 	public static Button resetGyro = new JoystickButton(OI.rightStick , 2);
+	public static Button squareUp = new JoystickButton(OI.rightStick , 3);
 	
 	
 	
@@ -53,8 +55,9 @@ public class OI {
     // button.whenReleased(new ExampleCommand());
 	 public OI(){
 			resetGyro.whenPressed(new ResetGyro());
+			squareUp.whenPressed(new SquareUp());
 
-			 CameraServer.getInstance().startAutomaticCapture(Robot.chassis.pixyCam);
+			 //CameraServer.getInstance().startAutomaticCapture(Robot.chassis.pixyCam);
 	 }
 }
 

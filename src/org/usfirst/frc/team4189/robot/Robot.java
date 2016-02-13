@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team4189.robot;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
@@ -8,6 +9,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.vision.AxisCamera;
 
 import org.usfirst.frc.team4189.robot.commands.DriveForDistance;
 import org.usfirst.frc.team4189.robot.commands.DriveForSquare;
@@ -29,9 +31,9 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 	public static Chassis chassis = new Chassis();
 	DriveWithJoysticks driveWithJoysticks;
+    CameraServer server;
 	
-	//RobotDrive myDrive;
-	
+		
 	
 
     Command autonomousCommand;
@@ -45,9 +47,8 @@ public class Robot extends IterativeRobot {
         // instantiate the command used for the autonomous period
         autonomousCommand = new DriveForSquare();
         driveWithJoysticks = new DriveWithJoysticks();
-        //myDrive = new RobotDrive(1,2);
-        //myDrive.setExpiration(0.1);
         chassis.dashData();
+        AxisCamera camera = new AxisCamera(null);
     	
     }
 	
@@ -78,6 +79,7 @@ public class Robot extends IterativeRobot {
         if (autonomousCommand != null) autonomousCommand.cancel();
         chassis.dashData();
         
+        
     }
 
     /**
@@ -98,7 +100,6 @@ public class Robot extends IterativeRobot {
         Scheduler.getInstance().run();
        // myDrive.tankDrive(OI.leftStick,  OI.rightStick);
 		//Timer.delay(0.05);
-		
         chassis.dashData();
     }
     
